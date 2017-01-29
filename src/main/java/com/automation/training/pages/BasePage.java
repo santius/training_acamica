@@ -1,24 +1,57 @@
 package com.automation.training.pages;
 
-import org.openqa.selenium.WebDriver;
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.FluentWait;
 
-public abstract class BasePage {
+import io.appium.java_client.AppiumDriver;
 
-	private WebDriver driver;
+@SuppressWarnings("rawtypes")
+public abstract class BasePage<T extends AppiumDriver> {
 
-	public BasePage(WebDriver pDriver) {
-		PageFactory.initElements(pDriver, this);
-		driver = pDriver;
-	}
+  private final T driver;
+  private static final int TIME_OUT_IN_SECONDS = 60;
 
-	protected WebDriver getDriver() {
-		return driver;
-	}
+  @SuppressWarnings("unchecked")
+  public BasePage(AppiumDriver pDriver) {
+    this.driver = (T) pDriver;
+    PageFactory.initElements(pDriver, this);
+  }
 
-	public void dispose() {
-		if (driver != null) {
-			driver.quit();
-		}
-	}
+  protected T getDriver() {
+    return driver;
+  }
+
+  public void dispose() {
+    if (driver != null) {
+      driver.quit();
+    }
+  }
+
+  protected <K> FluentWait<K> waitOn(K object, int timeOutSeconds) {
+    return new FluentWait<>(object).ignoring(NoSuchElementException.class)
+                                   .ignoring(StaleElementReferenceException.class)
+                                   .withTimeout(timeOutSeconds, SECONDS)
+                                   .pollingEvery(1, SECONDS);
+  }
+
+  protected FluentWait<T> getWait() {
+    return waitOn(getDriver(), TIME_OUT_IN_SECONDS);
+  }
+
+  protected void click(WebElement element) {
+    getWait().until(elementToBeClickable(element)).click();
+  }
+
+  protected void type(WebElement element, String text) {
+    getWait().until(elementToBeClickable(element));
+    element.clear();
+    element.sendKeys(text);
+  }
+
 }

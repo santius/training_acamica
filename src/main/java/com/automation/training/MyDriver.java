@@ -20,8 +20,7 @@ public class MyDriver {
 		default:
 			break;
 		}
-	}
-	
+	}	
 	public WebDriver getDriver() {
 		return this.driver;
 	}
