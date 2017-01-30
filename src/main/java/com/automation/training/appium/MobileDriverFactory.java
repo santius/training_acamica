@@ -10,26 +10,30 @@ import static org.openqa.selenium.remote.CapabilityType.PLATFORM;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import com.automation.training.listener.ElementListener;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.events.EventFiringWebDriverFactory;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
 
 public class MobileDriverFactory {
 
 	public AppiumDriver<?> getDriver(AppiumConfig config) {
-		DesiredCapabilities capabilities = new DesiredCapabilities();
+		DesiredCapabilities cap = new DesiredCapabilities();
 		AppiumServerAddress address = new AppiumServerAddress(config.appiumServerIp(), config.appiumServerPort());
-		capabilities.setCapability(BROWSER_NAME, config.deviceName());
-		capabilities.setCapability(DEVICE_NAME, config.deviceName());
-		capabilities.setCapability(PLATFORM, config.platform().toString());
-		capabilities.setCapability(PLATFORM_VERSION, config.platformVersion());
-		capabilities.setCapability(NEW_COMMAND_TIMEOUT, config.newCommandTimeout());
-		capabilities.setCapability(APP, config.app());
+		cap.setCapability(BROWSER_NAME, config.deviceName());
+		cap.setCapability(DEVICE_NAME, config.deviceName());
+		cap.setCapability(PLATFORM, config.platform().toString());
+		cap.setCapability(PLATFORM_VERSION, config.platformVersion());
+		cap.setCapability(NEW_COMMAND_TIMEOUT, config.newCommandTimeout());
+		cap.setCapability(APP, config.app());
 
-		AppiumDriver<?> driver = config.platform().setDriver(address, capabilities, config);
+		AppiumDriver<?> driver = config.platform().setDriver(address, cap, config);
 		driver.manage().timeouts().implicitlyWait(1, SECONDS);
+		driver = EventFiringWebDriverFactory.getEventFiringWebDriver(driver, new ElementListener());
 		return driver;
 	}
 
@@ -37,22 +41,23 @@ public class MobileDriverFactory {
 
 		ANDROID {
 			@Override
-			public AndroidDriver<AndroidElement> setDriver(AppiumServerAddress address, DesiredCapabilities capabilities,
+			public AndroidDriver<AndroidElement> setDriver(AppiumServerAddress address, DesiredCapabilities cap,
 					AppiumConfig config) {
-				capabilities.setCapability("appPackage", config.appPackage());
-				capabilities.setCapability("appActivity", config.appActivity());
-				return new AndroidDriver<AndroidElement>(address.getRemoteAddress(), capabilities);
+				cap.setCapability("appPackage", config.appPackage());
+				cap.setCapability("appActivity", config.appActivity());
+				return new AndroidDriver<AndroidElement>(address.getRemoteAddress(), cap);
 			}
 		},
+		
 		IOS {
 			@Override
-			public IOSDriver<IOSElement> setDriver(AppiumServerAddress address, DesiredCapabilities capabilities,
+			public IOSDriver<IOSElement> setDriver(AppiumServerAddress address, DesiredCapabilities cap,
 					AppiumConfig config) {
-				return new IOSDriver<IOSElement>(address.getRemoteAddress(), capabilities);
+				return new IOSDriver<IOSElement>(address.getRemoteAddress(), cap);
 			}
 		};
 
-		public abstract AppiumDriver<?> setDriver(AppiumServerAddress address, DesiredCapabilities capabilities,
+		public abstract AppiumDriver<?> setDriver(AppiumServerAddress address, DesiredCapabilities cap,
 				AppiumConfig config);
 	}
 

@@ -1,34 +1,52 @@
 package com.automation.training.pages;
 
-import org.openqa.selenium.By;
-
-import com.automation.training.appium.BasePage;
+import com.automation.training.pageobject.BasePage;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
-
+import io.appium.java_client.pagefactory.AndroidFindBy;
 
 public class WikiHomePage extends BasePage<AndroidDriver<AndroidElement>> {
 
-  NavigationWidget navigationWidget;
-  MenuWidget menuWidget;
+	NavigationComponent navigationComponent;
+	MenuComponent menuComponent;
 
-  public WikiHomePage(AppiumDriver<?> driver) {
-    super(driver);
-  }
+	@AndroidFindBy(id = "org.wikipedia:id/search_container")
+	private AndroidElement layoutSearch;
 
-  public NavigationWidget navigation() {
-    return navigationWidget;
-  }
-  
-  public MenuWidget menu() {
-    return menuWidget;
-  }
+	public WikiHomePage(AppiumDriver<?> driver) {
+		super(driver);
+		navigationComponent = new NavigationComponent(getDriver());
+		menuComponent = new MenuComponent(getDriver());
+	}
 
-  public void la() {
-    getDriver().findElement(By.id("org.wikipedia:id/menu_overflow_button")).click();
-    
-  }
-  
+	/**
+	 * Gets the {@link NavigationComponent}.
+	 * 
+	 * @return A instance of {@link NavigationComponent}.
+	 */
+	public NavigationComponent navigation() {
+		return navigationComponent;
+	}
+
+	/**
+	 * Gets the {@link MenuComponent}.
+	 * 
+	 * @return A instance of {@link MenuComponent}.
+	 */
+	public MenuComponent menu() {
+		return menuComponent;
+	}
+
+	/**
+	 * Opens the {@link SearchPage}.
+	 * 
+	 * @return A new instance of {@link SearchPage}.
+	 */
+	public SearchPage openSearch() {
+		click(layoutSearch);
+		return new SearchPage(getDriver());
+	}
+
 }
