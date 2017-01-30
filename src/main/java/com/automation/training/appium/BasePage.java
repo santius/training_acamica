@@ -1,4 +1,4 @@
-package com.automation.training.pages;
+package com.automation.training.appium;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
@@ -18,7 +18,7 @@ public abstract class BasePage<T extends AppiumDriver> {
   private static final int TIME_OUT_IN_SECONDS = 60;
 
   @SuppressWarnings("unchecked")
-  public BasePage(AppiumDriver pDriver) {
+  public BasePage(AppiumDriver<?> pDriver) {
     this.driver = (T) pDriver;
     PageFactory.initElements(pDriver, this);
   }

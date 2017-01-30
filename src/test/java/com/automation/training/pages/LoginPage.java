@@ -1,12 +1,15 @@
 package com.automation.training.pages;
 
 
+import com.automation.training.appium.BasePage;
+
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 
 
-public class LoginPage extends BasePage {
+public class LoginPage extends BasePage<AndroidDriver<AndroidElement>> {
 
   @AndroidFindBy(id = "org.wikipedia:id/login_username_text")
   private AndroidElement inputUsername;
@@ -20,7 +23,7 @@ public class LoginPage extends BasePage {
   @AndroidFindBy(id = "org.wikipedia:id/login_button")
   private AndroidElement buttonLogin;
 
-  public LoginPage(AndroidDriver<AndroidElement> driver) {
+  public LoginPage(AppiumDriver<?> driver) {
     super(driver);
   }
 

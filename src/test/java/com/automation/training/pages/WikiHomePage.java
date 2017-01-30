@@ -2,17 +2,19 @@ package com.automation.training.pages;
 
 import org.openqa.selenium.By;
 
+import com.automation.training.appium.BasePage;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 
 
-public class WikiHomePage extends BasePage {
+public class WikiHomePage extends BasePage<AndroidDriver<AndroidElement>> {
 
   NavigationWidget navigationWidget;
   MenuWidget menuWidget;
 
-  public WikiHomePage(AndroidDriver<AndroidElement> driver) {
+  public WikiHomePage(AppiumDriver<?> driver) {
     super(driver);
   }
 

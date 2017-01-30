@@ -9,6 +9,7 @@ public class WikiTests extends BaseTests{
 	@Test
 	public void testWikiSearch() {
 		WikiHomePage home = getWikiHomePage();
+		home.la();
 	}
 
 }

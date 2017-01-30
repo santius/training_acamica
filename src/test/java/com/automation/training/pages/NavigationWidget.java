@@ -1,6 +1,9 @@
 package com.automation.training.pages;
 
 
+import com.automation.training.appium.BasePage;
+
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -19,7 +22,7 @@ public class NavigationWidget extends BasePage<AndroidDriver<AndroidElement>> {
   @AndroidFindBy(uiAutomator = "text(\"Nearby\")")
   private AndroidElement nearby;
 
-  protected NavigationWidget(AndroidDriver<AndroidElement> driver) {
+  protected NavigationWidget(AppiumDriver<?> driver) {
     super(driver);
   }
 

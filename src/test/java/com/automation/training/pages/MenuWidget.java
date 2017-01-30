@@ -3,6 +3,9 @@ package com.automation.training.pages;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import com.automation.training.appium.BasePage;
+
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -18,7 +21,7 @@ public class MenuWidget extends BasePage<AndroidDriver<AndroidElement>> {
   @FindBy(how = How.NAME, using = "Log in to Wikipedia")
   private AndroidElement textLoginWikipedia;
 
-  protected MenuWidget(AndroidDriver<AndroidElement> driver) {
+  protected MenuWidget(AppiumDriver<?> driver) {
     super(driver);
   }
 
