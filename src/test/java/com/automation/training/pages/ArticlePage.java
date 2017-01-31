@@ -19,7 +19,7 @@ public class ArticlePage extends BasePage<AndroidDriver<AndroidElement>> {
 		super(driver);
 	}
 
-	public String getArticleText() {
+	public String getArticleTitle() {
 		return getText(textArticleTitle);
 	}
 

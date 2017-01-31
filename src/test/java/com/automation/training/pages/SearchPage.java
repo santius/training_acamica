@@ -61,7 +61,7 @@ public class SearchPage extends BasePage<AndroidDriver<AndroidElement>> {
 	}
 
 	/**
-	 * Returns the number of elements in the {@link ResultItemWidget}.
+	 * Returns the number of elements in the {@link ResultItemWidget} list.
 	 * 
 	 * @return
 	 */
@@ -70,15 +70,17 @@ public class SearchPage extends BasePage<AndroidDriver<AndroidElement>> {
 	}
 
 	/**
-	 * Select {@link ResultItemWidget} with a specific index.
+	 * Select a {@link ResultItemWidget} item with a specific index.
 	 * 
 	 * @param index
 	 *            Index on the Result items list.
-	 * @return A new instance of {@link ArticlePage}
+	 * @return A new instance of {@link ArticlePage}.
+	 * @throws IllegalArgumentException
+	 *             if the given index > total of result items.
 	 */
 	public ArticlePage openArticleByIndex(final int index) {
 		int actual = getResultsSize();
-		checkArgument(index <= actual, "You requested the item [%s] but the items list has [%s] items", actual, index);
+		checkArgument(index <= actual, "You requested the item [%s] but the items list has [%s] items", index, actual);
 		ResultItemWidget item = resultItemWidgets.get(index);
 		click(item.getTitle());
 		return new ArticlePage(getDriver());

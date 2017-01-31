@@ -62,7 +62,7 @@ public abstract class BasePage<T extends AppiumDriver> implements Logging{
 	}
 
 	protected void click(String text) {
-		By locator = AndroidUIAutomator("text(\""+text+"\")");
+		By locator = AndroidUIAutomator("text(\""+text+"\")");		
 		getWait().until(elementToBeClickable(locator)).click();
 	}
 
