@@ -37,6 +37,7 @@ public class SearchPage extends BasePage<AndroidDriver<AndroidElement>> {
 	 */
 	public SearchPage search(final String search) {
 		type(editTextSearch, search);
+		hideKeyboard();
 		return this;
 	}
 

@@ -40,4 +40,8 @@ public interface AppiumConfig extends Config {
 	@Key("appium.new.command.timeout")
 	@DefaultValue("120")
 	int newCommandTimeout();
+	
+	@Key("appium.timeout")
+	@DefaultValue("60")
+	int timeout();	
 }

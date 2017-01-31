@@ -5,12 +5,14 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
+import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.FluentWait;
 
+import com.automation.training.appium.AppiumConfig;
 import com.automation.training.logging.Logging;
 
 import io.appium.java_client.AppiumDriver;
@@ -21,14 +23,9 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 public abstract class BasePage<T extends AppiumDriver> implements Logging{
 
 	private final T driver;
-	private static final int TIME_OUT_IN_SECONDS = 60;
+	private AppiumConfig config = ConfigFactory.create(AppiumConfig.class);
 
 	public BasePage(AppiumDriver<?> pDriver) {
-		this.driver = (T) pDriver;
-		initElements();
-	}
-
-	public BasePage(AppiumDriver<?> pDriver, final String activity) {
 		this.driver = (T) pDriver;
 		initElements();
 	}
@@ -54,7 +51,7 @@ public abstract class BasePage<T extends AppiumDriver> implements Logging{
 	}
 
 	protected FluentWait<T> getWait() {
-		return waitOn(getDriver(), TIME_OUT_IN_SECONDS);
+		return waitOn(getDriver(), config.timeout());
 	}
 
 	protected void click(MobileElement element) {
@@ -74,5 +71,9 @@ public abstract class BasePage<T extends AppiumDriver> implements Logging{
 		getWait().until(elementToBeClickable(element));
 		element.clear();
 		element.sendKeys(text);
+	}
+	
+	protected void hideKeyboard(){
+		getDriver().hideKeyboard();
 	}
 }
