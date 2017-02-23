@@ -15,13 +15,13 @@ public class SearchPage extends BasePage<AndroidDriver<AndroidElement>> {
 
 	private List<ResultItemWidget> resultItemWidgets;
 
-	@AndroidFindBy(id = "org.wikipedia:id/search_src_text")
+	@AndroidFindBy(id = ID_PREFIX + "search_src_text")
 	private AndroidElement editTextSearch;
 
-	@AndroidFindBy(id = "org.wikipedia:id/search_close_btn")
+	@AndroidFindBy(id = ID_PREFIX + "search_close_btn")
 	private AndroidElement imageClose;
 
-	@AndroidFindBy(id = "org.wikipedia:id/recent_searches_delete_button")
+	@AndroidFindBy(id = ID_PREFIX + "recent_searches_delete_button")
 	private AndroidElement imageDeleteRecent;
 
 	public SearchPage(AppiumDriver<?> driver) {

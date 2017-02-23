@@ -9,10 +9,10 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 
 public class MenuComponent extends BasePage<AndroidDriver<AndroidElement>> {
 
-	@AndroidFindBy(id = "org.wikipedia:id/menu_overflow_button")
+	@AndroidFindBy(id = ID_PREFIX + "menu_overflow_button")
 	private AndroidElement textMenuOverflow;
 
-	@AndroidFindBy(id = "org.wikipedia:id/menu_feed_search")
+	@AndroidFindBy(id = ID_PREFIX + "menu_feed_search")
 	private AndroidElement textMenuFeedSearch;
 
 	protected MenuComponent(AppiumDriver<?> driver) {

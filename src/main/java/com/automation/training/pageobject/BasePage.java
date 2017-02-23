@@ -24,6 +24,7 @@ public abstract class BasePage<T extends AppiumDriver> implements Logging{
 
 	private final T driver;
 	private AppiumConfig config = ConfigFactory.create(AppiumConfig.class);
+	protected final String ID_PREFIX = "org.wikipedia:id/";
 
 	public BasePage(AppiumDriver<?> pDriver) {
 		this.driver = (T) pDriver;

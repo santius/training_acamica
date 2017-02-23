@@ -12,7 +12,7 @@ public class WikiHomePage extends BasePage<AndroidDriver<AndroidElement>> {
 	NavigationComponent navigationComponent;
 	MenuComponent menuComponent;
 
-	@AndroidFindBy(id = "org.wikipedia:id/search_container")
+	@AndroidFindBy(id = ID_PREFIX +  "search_container")
 	private AndroidElement layoutSearch;
 
 	public WikiHomePage(AppiumDriver<?> driver) {
